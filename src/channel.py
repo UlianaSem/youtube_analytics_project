@@ -17,9 +17,33 @@ class Channel:
         self.__title = channel['items'][0]['snippet']['title']
         self.__channel_description = channel['items'][0]['snippet']['description']
         self.__url = "https://www.youtube.com/channel/" + channel_id
-        self.__subscriber_count = channel['items'][0]['statistics']['subscriberCount']
-        self.__video_count = channel['items'][0]['statistics']['videoCount']
-        self.__view_count = channel['items'][0]['statistics']['viewCount']
+        self.__subscriber_count = int(channel['items'][0]['statistics']['subscriberCount'])
+        self.__video_count = int(channel['items'][0]['statistics']['videoCount'])
+        self.__view_count = int(channel['items'][0]['statistics']['viewCount'])
+
+    def __str__(self):
+        return f'{self.__title} ({self.__url})'
+
+    def __add__(self, other):
+        return self.__subscriber_count + other.__subscriber_count
+
+    def __sub__(self, other):
+        return self.__subscriber_count - other.__subscriber_count
+
+    def __lt__(self, other):
+        return self.__subscriber_count < other.__subscriber_count
+
+    def __le__(self, other):
+        return self.__subscriber_count <= other.__subscriber_count
+
+    def __gt__(self, other):
+        return self.__subscriber_count > other.__subscriber_count
+
+    def __ge__(self, other):
+        return self.__subscriber_count >= other.__subscriber_count
+
+    def __eq__(self, other):
+        return self.__subscriber_count == other.__subscriber_count
 
     @property
     def channel_id(self):
