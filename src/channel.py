@@ -94,11 +94,10 @@ class Channel:
         """Сохраняет в файл значения атрибутов экземпляра Channel"""
         path = '../src/' + file_name.strip()
 
-        with open(path, 'w') as file:
-            file.write(f'id: {self.__channel_id}\n')
-            file.write(f'title: {self.__title}\n')
-            file.write(f'description: {self.__channel_description}\n')
-            file.write(f'url: {self.__url}\n')
-            file.write(f'subscriber_count: {self.__subscriber_count}\n')
-            file.write(f'video_count: {self.__video_count}\n')
-            file.write(f'view_count: {self.__view_count}\n')
+        data_to_record = json.dumps({'id': self.__channel_id, 'title': self.__title,
+                                     'description': self.__channel_description, 'url': self.__url,
+                                     'subscriber_count': self.__subscriber_count, 'video_count': self.__video_count,
+                                     'view_count': self.__view_count})
+
+        with open(path, 'w', encoding='utf-8') as file:
+            file.writelines(data_to_record)
