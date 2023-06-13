@@ -1,8 +1,12 @@
-import src.channel
+import os
+
+import googleapiclient.discovery
 
 
-class Video(src.channel.Channel):
+class Video:
     """Класс для ютуб-видео"""
+    api_key = os.getenv('YOUTUBE_API_KEY')
+
     def __init__(self, video_id):
         """Экземпляр инициализируется id видео. Дальше все данные будут подтягиваться по API."""
         self.__video_id = video_id
@@ -45,6 +49,20 @@ class Video(src.channel.Channel):
 
         return video_response
 
+    @classmethod
+    def get_service(cls):
+        """Класс-метод, возвращающий объект для работы с YouTube API"""
+        return googleapiclient.discovery.build('youtube', 'v3', developerKey=cls.api_key)
+
 
 class PLVideo(Video):
-    pass
+    """Класс для ютуб-видео с плейлистом"""
+    def __init__(self, video_id, playlist_id):
+        """Экземпляр инициализируется id видео и id плейлиста. Дальше все данные будут подтягиваться по API."""
+        super().__init__(video_id)
+
+        self.__playlist_id = playlist_id
+
+    @property
+    def playlist_id(self):
+        return self.__playlist_id
