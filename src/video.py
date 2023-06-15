@@ -14,6 +14,7 @@ class Video:
         video = self.__get_info()
 
         self.__video_title = video['items'][0]['snippet']['title']
+        self.__url = "https://youtu.be/" + self.__video_id
         self.__view_count = int(video['items'][0]['statistics']['viewCount'])
         self.__like_count = int(video['items'][0]['statistics']['likeCount'])
         self.__comment_count = int(video['items'][0]['statistics']['commentCount'])
@@ -40,6 +41,10 @@ class Video:
     @property
     def comment_count(self):
         return self.__comment_count
+
+    @property
+    def url(self):
+        return self.__url
 
     def __get_info(self):
         """Возвращает информацию о видео."""
