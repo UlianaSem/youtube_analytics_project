@@ -13,22 +13,30 @@ class Video:
 
         video = self.__get_info()
 
-        self.__video_title = video['items'][0]['snippet']['title']
-        self.__url = "https://youtu.be/" + self.__video_id
-        self.__view_count = int(video['items'][0]['statistics']['viewCount'])
-        self.__like_count = int(video['items'][0]['statistics']['likeCount'])
-        self.__comment_count = int(video['items'][0]['statistics']['commentCount'])
+        try:
+            self.__title = video['items'][0]['snippet']['title']
+            self.__url = "https://youtu.be/" + self.__video_id
+            self.__view_count = int(video['items'][0]['statistics']['viewCount'])
+            self.__like_count = int(video['items'][0]['statistics']['likeCount'])
+            self.__comment_count = int(video['items'][0]['statistics']['commentCount'])
+
+        except IndexError:
+            self.__title = None
+            self.__url = None
+            self.__view_count = None
+            self.__like_count = None
+            self.__comment_count = None
 
     def __str__(self):
-        return self.__video_title
+        return self.__title
 
     @property
     def video_id(self):
         return self.__video_id
 
     @property
-    def video_title(self):
-        return self.__video_title
+    def title(self):
+        return self.__title
 
     @property
     def view_count(self):
